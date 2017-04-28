@@ -11,7 +11,7 @@ var routes = require('./routes/index');
 
 var app = express();
 // mongoose.connect('localhost:27017/rentacar');
-mongoose.connect('mongodb://milan_577:x$nT4WW4yMBY@ds123371.mlab.com:23371/rentacar');
+mongoose.connect('mongodb://root:x$nT4WW4yMBY@ds123371.mlab.com:23371/rentacar');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
