@@ -2,6 +2,7 @@
   <a href="http://localhost:3000/?type=personal" class="btn btn-primary" role="button">Personal vehicles</a>
   <a href="http://localhost:3000/?type=terrain" class="btn btn-info" role="button">Terrain vehicles</a>
 </div>
+<br /><br />
 
 <div class="container">
 	<table id="cart" class="table table-responsive">
@@ -20,7 +21,7 @@
 						<tr class="item">
 							<td data-th="Product">
 								<div class="row">
-									<div class="col-sm-3 hidden-xs"><a href="{{this.links}}" target="_blank"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a></div>
+									<div class="col-sm-3 hidden-xs"><a href="{{this.links}}"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a></div>
 									<div class="col-sm-9">
 										<h4 class="nomargin">{{ this.title }}</h4>
 										<p class="hidden-xs">{{ this.description }}</p>

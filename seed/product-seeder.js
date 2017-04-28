@@ -1,7 +1,7 @@
 var Product = require('../models/product');
 
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/rentaCar');
+mongoose.connect('localhost:27017/rentacar');
 
 // products je sada kolekcija
 var products = [
