@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
     query.type = req.query.type;
   }
   Product.find(query, function (err, docs) {
+    var pc = 'http://' + req.headers.host + '/?type=' + 'personal';
+    var tc = 'http://' + req.headers.host + '/?type=' + 'terrain';
 
     // HATEOAS
     var returnBooks = [];
@@ -33,7 +35,7 @@ router.get('/', function(req, res, next) {
     }
     // res.json(productChunks);
 
-    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks });
+    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks, pc: pc, tc: tc });
   });
 });
 
