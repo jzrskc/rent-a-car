@@ -11,20 +11,13 @@ router.get('/', function(req, res, next) {
     query.type = req.query.type;
   }
   Product.find(query, function (err, docs) {
-    var pc = 'http://' + req.headers.host + '/?type=' + 'personal';
-    var tc = 'http://' + req.headers.host + '/?type=' + 'terrain';
 
     // HATEOAS
     var returnBooks = [];
     docs.forEach(function(element, index, array) {
       var newBook = element.toJSON();
-      newBook.links = {};
-      newBook.links2 = {};
       newBook.links = 'http://' + req.headers.host + '/' + newBook._id
-      newBook.personalCar = 'http://' + req.headers.host + '/?type=' + 'personal';
-      newBook.terrainCar = 'http://' + req.headers.host + '/?type=' + 'terrain';
       returnBooks.push(newBook);
-
     });
 
     // Saljemo array "productChunks" u hbs i stavili smo da 3 img mogu biti u 1 redu
@@ -35,11 +28,19 @@ router.get('/', function(req, res, next) {
     }
     // res.json(productChunks);
 
-    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks, pc: pc, tc: tc });
+    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks });
   });
 });
 
 
+// PERSONAL OR TERRAIN
+router.post('/', function(req, res) {
+  if (req.body.carName.length) {
+    res.redirect('http://' + req.headers.host + '/?type=' + req.body.carName);
+  } else {
+    res.redirect('/');
+  }
+});
 
 
 

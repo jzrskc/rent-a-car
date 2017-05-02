@@ -1,56 +1,68 @@
-<div class="btn-group" role="group" aria-label="...">
-  <a href="{{pc}}" class="btn btn-primary" role="button">Personal vehicles</a>
-  <a href="{{tc}}" class="btn btn-info" role="button">Terrain vehicles</a>
+<div class="container">
+  <form action="/" method="post">
+    <div class="row clearfix">
+      <div class="col-md-4 column">
+        <select id="carName" name="carName" class="form-control">
+          <option value="">(Show All Vehicles)</option>
+          <option value="personal">Personal vehicles</option>
+          <option value="terrain">Terrain vehicles</option>
+        </select>
+      </div>
+      <div class="col-md-8 column">
+        <!-- Button -->
+        <button id="btnFilterNotes" name="btnFilterNotes" class="btn btn-primary" type="submit">Filter ></button>
+      </div>
+    </div>
+  </form>
 </div>
 <br /><br />
 
 <div class="container">
 	<table id="cart" class="table table-responsive">
-    				<thead>
-						<tr class="names">
-							<th style="width:80%">Product</th>
-							<th style="width:10%" class="text-right hidden-xs">Price</th>
-							<th style="width:15%" class="text-right">Days</th>
-							<th style="width:10%" class="text-right">Amount</th>
-							<th style="width:5%"></th>
-						</tr>
-					</thead>
-          {{# each products }}
-					<tbody>
-            {{# each this }}
-						<tr class="item">
-							<td data-th="Product">
-								<div class="row">
-									<div class="col-sm-3 hidden-xs"><a href="{{this.links}}"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a></div>
-									<div class="col-sm-9">
-										<h4 class="nomargin"><a href="{{this.links}}">{{ this.title }}</a></h4>
-										<p class="hidden-xs">{{ this.description }}</p>
-									</div>
-								</div>
-							</td>
-							<td data-th="Price" class="text-right hidden-xs">€{{ this.price }}</td>
-							<td data-th="Quantity" class="text-right">
-								1
-                <div class="btn-group" role="group" aria-label="...">
-                  <button type="button" class="btn btn-sm btn-default">-</button>
-                  <button type="button" class="btn btn-sm btn-default">+</button>
-                </div>
-							</td>
-							<td data-th="Subtotal" class="text-right"><strong>$109.99</strong></td>
-							<td class="actions" data-th="">
-								<button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-							</td>
-						</tr>
-            <tr class="no-border">
-              <td colspan="2" class="hidden-xs"></td>
-              <td></td>
-              <td colspan="2"><a href="#" class="btn btn-success btn-block">Rent-a-Car <i class="fa fa-angle-right"></i></a></td>
-            </tr>
-					</tbody>
-          {{/each}}
-					<tfoot>
-            {{/each}}
-					</tfoot>
-				</table>
+		<thead>
+  		<tr class="names">
+  			<th style="width:80%">Product</th>
+  			<th style="width:10%" class="text-right hidden-xs">Price</th>
+  			<th style="width:15%" class="text-right">Days</th>
+  			<th style="width:10%" class="text-right">Amount</th>
+  			<th style="width:5%"></th>
+  		</tr>
+	  </thead>
 
+  {{# each products }}
+	<tbody>
+    {{# each this }}
+		<tr class="item">
+			<td data-th="Product">
+				<div class="row">
+					<div class="col-sm-3 hidden-xs"><a href="{{this.links}}"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a></div>
+					<div class="col-sm-9">
+						<h4 class="nomargin"><a href="{{this.links}}">{{ this.title }}</a></h4>
+						<p class="hidden-xs">{{ this.description }}</p>
+					</div>
+				</div>
+			</td>
+			<td data-th="Price" class="text-right hidden-xs">€{{ this.price }}</td>
+			<td data-th="Quantity" class="text-right">
+				1
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" class="btn btn-sm btn-default">-</button>
+          <button type="button" class="btn btn-sm btn-default">+</button>
+        </div>
+			</td>
+			<td data-th="Subtotal" class="text-right"><strong>$109.99</strong></td>
+			<td class="actions" data-th="">
+				<button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+			</td>
+		</tr>
+
+    <tr class="no-border">
+      <td colspan="2" class="hidden-xs"></td>
+      <td></td>
+      <td colspan="2"><a href="#" class="btn btn-success btn-block">Rent-a-Car <i class="fa fa-angle-right"></i></a></td>
+    </tr>
+	</tbody>
+  {{/each}}
+    {{/each}}
+	</table>
 </div>
