@@ -1,8 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var csrf = require('csurf');
 
 // IMPORT COLLECTION
 var Product = require('../models/product');
+
+//  CSURF - protection middleware
+var csrfProtection = csrf();
+router.use(csrfProtection);
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,8 +34,7 @@ router.get('/', function(req, res, next) {
       productChunks.push(returnBooks.slice(i, i + chunkSize));
     }
     // res.json(productChunks);
-
-    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks });
+    res.render('shop/index2', { title: 'Rent-a-Car', products: productChunks, csrfToken: req.csrfToken });
   });
 });
 
@@ -43,38 +49,32 @@ router.post('/', function(req, res) {
 });
 
 
-
 /* GET SPECIFIC CAR. */
 router.get('/:carId', function(req, res, next) {
-    Product.findById(req.params.carId, function(err,book){
-      if(err) res.status(500).send(err);
+  Product.findById(req.params.carId, function(err,book){
+    if(err) res.status(500).send(err);
 
-////////////////////////////////////////////
-// HATEOAS to filter by this current type //
-////////////////////////////////////////////
+    // HATEOAS to filter by this current type
+    else {
+      var returnBook = book.toJSON();
+      returnBook.links = {};
+      var newLink = 'http://' + req.headers.host + '/?type=' + returnBook.type;
+      returnBook.links = newLink.replace(' ', '%20');
+      // res.json(returnBook);
 
-      else {
-        var returnBook = book.toJSON();
+      y = [];
+      y.push(returnBook);
 
-        returnBook.links = {};
-        var newLink = 'http://' + req.headers.host + '/?type=' + returnBook.type;
-        returnBook.links = newLink.replace(' ', '%20');
-        // console.log(returnBook.links);
-        // res.json(returnBook);
-
-        y = [];
-        y.push(returnBook);
-
-        var productChunks2 = [];
-        var chunkSize = 1;
-        for (var i = 0; i < y.length; i += chunkSize) {
-          productChunks2.push(y.slice(i, i + chunkSize));
-        }
-        // res.json(productChunks2);
-        res.render('shop/singleCar', { title: 'Rent-a-Car', products: productChunks2 });
+      var productChunks2 = [];
+      var chunkSize = 1;
+      for (var i = 0; i < y.length; i += chunkSize) {
+        productChunks2.push(y.slice(i, i + chunkSize));
       }
+      // res.json(productChunks2);
+      res.render('shop/singleCar', { title: 'Rent-a-Car', products: productChunks2 });
+    }
 
     });
-  })
+  });
 
 module.exports = router;

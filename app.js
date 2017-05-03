@@ -6,12 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
+var validator = require('express-validator');
 
 var routes = require('./routes/index');
+var userRoutes = require('./routes/user');
 
 var app = express();
 // mongoose.connect('localhost:27017/rentacar');
 mongoose.connect('mongodb://root:x$nT4WW4yMBY@ds123371.mlab.com:23371/rentacar');
+
+require('./config/passport');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
@@ -22,9 +29,22 @@ app.set('view engine', '.hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
+app.use(session({secret: 'mysecret', resave: false, saveUninitialized: false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Ovim postavljamo da LOGIN  bude globavna varijabla, dostupna svima
+// provjerava je li isAuthenticated TRUE/FALSE => view/header
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  next();
+});
+
+app.use('/user', userRoutes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
