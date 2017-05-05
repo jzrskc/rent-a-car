@@ -13,10 +13,11 @@ var validator = require('express-validator');
 
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
 
 var app = express();
 // mongoose.connect('localhost:27017/rentacar');
-mongoose.connect('mongodb://root:x$nT4WW4yMBY@ds123371.mlab.com:23371/rentacar');
+mongoose.connect('mongodb://root:password@ds155130.mlab.com:55130/rentacar');
 
 require('./config/passport');
 
@@ -45,6 +46,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
