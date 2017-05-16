@@ -25,6 +25,7 @@
   			<th style="width:80%">Product</th>
   			<th style="width:10%" class="text-right hidden-xs">Price</th>
   			<th style="width:15%" class="text-right">Days</th>
+  			<th style="width:50%" class="text-right"></th>
   			<th style="width:10%" class="text-right">Amount</th>
   			<th style="width:5%"></th>
   		</tr>
@@ -43,27 +44,48 @@
 					</div>
 				</div>
 			</td>
-			<td data-th="Price" class="text-right hidden-xs">€{{ this.price }}</td>
-			<td data-th="Quantity" class="text-right">
-				1
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" class="btn btn-sm btn-default">-</button>
-          <button type="button" class="btn btn-sm btn-default">+</button>
-        </div>
+			<td data-th="Price" class="text-right hidden-xs">&euro;{{ this.price }}</td>
+			<td data-th="Quantity" id="quantity" class="text-right">1</td>
+      <td data-th="Buttons" class="text-right">
+        <button type="button" class="btn btn-success btn-simple btn-xs" value="Increase" id="inc" onclick="incNumber()">
+          <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-danger btn-simple btn-xs" value="Decrease" id="dec" onclick="decNumber()">
+          <i class="fa fa-minus"></i></button>
 			</td>
-			<td data-th="Subtotal" class="text-right"><strong>$109.99</strong></td>
-			<td class="actions" data-th="">
-				<button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-			</td>
+			<td data-th="Subtotal" class="text-right"><strong>€109.99</strong></td>
+
+      <!-- <td>
+        <form action="/" method="get">
+          <input type="hidden" name="qtyVal" value="{{ ?? }}">
+        </form>
+      </td> -->
+
 		</tr>
 
     <tr class="no-border">
       <td colspan="2" class="hidden-xs"></td>
       <td></td>
-      <td colspan="2"><a href="#" class="btn btn-success btn-block">Rent-a-Car <i class="fa fa-angle-right"></i></a></td>
+      <td colspan="2"><a href="add-to-cart/{{this._id}}" class="btn btn-success btn-block">Rent-a-Car <i class="fa fa-angle-right"></i></a></td>
     </tr>
 	</tbody>
   {{/each}}
     {{/each}}
 	</table>
 </div>
+
+<script type="text/javascript">
+  let i = 1;
+  function incNumber() {
+    if (i < 10) i++;
+    else if (i = 10) i = 1;
+    document.getElementById("quantity").innerHTML = i;
+  }
+
+  function decNumber() {
+    if (i > 1) i--;
+    document.getElementById("quantity").innerHTML = i;
+  }
+
+  var x = document.getElementById('quantity').innerHTML;
+  console.log(x);
+</script>

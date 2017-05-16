@@ -1,0 +1,47 @@
+{{# if this.products }}
+<table class="table">
+  <thead>
+    <tr>
+      <th class="col-sm-3 hidden-xs">Product</th>
+      <th>Name</th>
+      <th>Duration</th>
+      <th class="text-right">Price</th>
+      <th class="text-right">Actions</th>
+    </tr>
+  </thead>
+  {{#each products}}
+  <tbody>
+    <tr>
+      <td class="col-sm-3 hidden-xs"><img src="{{this.item.imagePath}}" alt="{{this.item.title}}" class="img-circle" style="width:130px"></td>
+      <td>{{ this.item.title }}</td>
+      <td>{{ this.qty }} days</td>
+      <td class="text-right">&euro; {{ this.price }}</td>
+      <td class="td-actions text-right">
+        <a class="btn btn-success btn-simple btn-xs" rel="tooltip" title="Reduce 1" href="/reduce/{{this.item._id}}"><i class="fa fa-minus"></i></a>
+        <a class="btn btn-danger btn-simple btn-xs" rel="tooltip" title="Remove" href="/remove/{{this.item._id}}"><i class="fa fa-times"></i></a>
+      </td>
+    </tr>
+  </tbody>
+  {{/each}}
+</table>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-8 col-sm-offset-3">
+    <strong>Total: {{ totalPrice }}</strong>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-8 col-sm-offset-3">
+    <button type="button" class="btn btn-success">Checkout</button>
+  </div>
+</div>
+{{ else }}
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+    <h2>No Items in Cart yet!</h2>
+  </div>
+</div>
+{{/if}}

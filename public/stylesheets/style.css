@@ -21,6 +21,10 @@
   margin-right:-4px;
 }
 
+ul.nav li.active a {
+  color: red !important;
+}
+
 /**/
 
 section {

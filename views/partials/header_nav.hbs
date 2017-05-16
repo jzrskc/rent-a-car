@@ -1,0 +1,71 @@
+<header>
+  <h1>Rent a car company</h1>
+</header>
+
+<nav id="main">
+  <div class="topnav" id="myTopnav">
+
+  <ul>
+    <li class="logo"><a href="/">HOME.</a></li>
+    <li><a href="/">HOME</a></li>
+    {{#if user.admin }}
+    <li class="active"><a class="accordion-toggle btn-block text-warning" href="/admin"><i class="fa fa-cogs" aria-hidden="true"></i> Administration</a></li>
+    {{/if}}
+    <li>
+      <a href="/shopping-cart">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i> Shopping Cart
+        <span class="badge">{{ session.cart.totalQty }}</span>
+      </a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        {{# if login }}
+          <li><a href="/user/profile">User Account</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/user/logout">Logout</a></li>
+        {{ else }}
+          <li><a href="/user/signin">Sing in</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/user/signup">Sing up</a></li>
+        {{/if}}
+      </ul>
+    </li>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </ul>
+</div>
+</nav>
+
+
+<script>
+
+const nav = document.querySelector('#main');
+let topOfNav = nav.offsetTop;   //Vrh Nav-a
+
+function fixNav() {
+  // Kada scroll dode do vrha Nav, fiksirat Nav na stranicu, tako sto cemo body-u dodati 'fixed-nav'
+  // class="" -> class="fixed-nav"
+  if(window.scrollY >= topOfNav) {
+    // style="padding-top: 77px;" Dodajemo ovaj style bodyu, tako da se glatko fiksira, da Nav ne 'poskace'
+    document.body.style.paddingTop = nav.offsetHeight + 'px';
+    document.body.classList.add('fixed-nav');
+  } else {
+    document.body.classList.remove('fixed-nav');
+    document.body.style.paddingTop = 0;
+  }
+}
+
+window.addEventListener('scroll', fixNav);
+
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+</script>

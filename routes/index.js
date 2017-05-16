@@ -4,10 +4,56 @@ var csrf = require('csurf');
 
 // IMPORT COLLECTION
 var Product = require('../models/product');
+var Cart = require('../models/cart');
 
 //  CSURF - protection middleware
 var csrfProtection = csrf();
 router.use(csrfProtection);
+
+
+
+// Cart Session - ADD To CART
+router.get('/add-to-cart/:id', function(req, res, next) {
+  var productId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  Product.findById(productId, function(err, product) {
+    if(err) res.redirect('/');
+    cart.add(product, productId);
+    req.session.cart = cart;  // Spremamo cart u Session
+    // console.log(req.session.cart);
+    res.redirect('/');
+  });
+});
+
+
+
+// Shopping Cart
+router.get('/shopping-cart', function(req, res, next) {
+  if(!req.session.cart) return res.render('shop/shoppingCart', { products: null });
+  var cart = new Cart(req.session.cart);
+  res.render('shop/shoppingCart', { products: cart.generateArray(), totalPrice: cart.totalPrice });
+});
+
+// Reduc by 1
+router.get('/reduce/:id', function(req, res, next) {
+  var productId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.reduceByOne(productId);
+  req.session.cart = cart;
+  res.redirect('/shopping-cart');
+});
+
+// Remove
+router.get('/remove/:id', function(req, res, next) {
+  var productId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.removeItem(productId);
+  req.session.cart = cart;
+  res.redirect('/shopping-cart');
+});
 
 
 

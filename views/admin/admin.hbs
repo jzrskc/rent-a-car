@@ -13,7 +13,7 @@
     </div>
     <div class="input">
       <label for="description">Description</label>
-      <textarea id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
+      <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
       <!-- <input type="text" id="description" name="description"> -->
     </div>
     <br>
@@ -40,7 +40,7 @@
     {{# each items }}
       <article class="item">
         <div>Title: {{ this.title }}</div>
-        <div>Content: {{ this.type }}</div>
+        <div>Type: {{ this.type }}</div>
         <div>Price: {{ this.price }}</div>
         <div>ID: {{ this._id }}</div>
         <hr>
@@ -67,7 +67,7 @@
     </div>
     <div class="input">
       <label for="description">Description</label>
-      <textarea id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
+      <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
       <!-- <input type="textarea rows='5'" id="description" name="description"> -->
     </div><br>
     <div class="input">
