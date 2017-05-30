@@ -1,1 +1,31 @@
-<h1>User Profile</h1>
+<div id="corporate" class="row row-content">
+  <div class="col-xs-12">
+    <h1>User Profile</h1>
+    <hr>
+    <h2>User: {{ user }} </h2>
+
+    {{# each orders }}
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel fade in active panel-info">
+        <div class="panel-heading" role="tab" id="headingPeter">
+          <h3 class="panel-title">
+            <a href=#{{this.id}} role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls={{this.id}}><strong>Total Price: &euro;{{ this.cart.totalPrice }}</strong></a>
+          </h3>
+        </div>
+        <div class="panel-collapse collapse in" id={{this.id}}>
+          <div class="panel-body">
+            <ul class="list-group">
+              {{# each this.cart.items }}
+                <li class="list-group-item">
+                  <span class="badge">&euro; {{ this.price }}</span> {{ this.item.title }} | {{ this.qty }} Day(s)
+                </li>
+                {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+</div>

@@ -217,3 +217,17 @@ section h3 {
   font-weight: bold;
   padding: 2px 0;
 }
+
+.panel-footer{
+  background-color:#337ab7;
+  border-color: #337ab7;
+  color: #FFFFFF;
+}
+
+.panel-group{
+  margin: 5px;
+}
+
+.badge{
+  background-color:#337ab7;
+}

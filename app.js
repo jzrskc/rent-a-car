@@ -12,6 +12,10 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 var MongoStore = require('connect-mongo')(session); // Snimamo Session u MongoDB
 
+// Sentry - raver
+var Raven = require('raven');
+Raven.config('https://2fca634c69ba4a37b646673c3d18597b:ea299259106a4666b3f0a13626b0dc44@sentry.io/172609').install();
+
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin');
@@ -45,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ovim postavljamo da LOGIN bude globavna varijabla, dostupna svima
+// Ovim postavljamo da LOGIN bude globavna varijabla, dostupna svima. Nesto kao MIDDLEWARE
 // provjerava je li isAuthenticated TRUE/FALSE => view/header
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
