@@ -6,7 +6,7 @@
 
     {{# each orders }}
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel fade in active panel-info">
+      <div class="panel-profile fade in active panel-info">
         <div class="panel-heading" role="tab" id="headingPeter">
           <h3 class="panel-title">
             <a href=#{{this.id}} role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls={{this.id}}><strong>Total Price: &euro;{{ this.cart.totalPrice }}</strong></a>
