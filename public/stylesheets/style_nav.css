@@ -80,6 +80,12 @@ h1 {
   text-shadow: 3px 4px 0 rgba(0,0,0,0.2)
 }
 
+h1.split{
+  color:black;
+  font-size: 56px;
+  text-shadow: 3px 4px 0 rgba(0,0,0,0.2)
+}
+
 nav {
   background: #2e2e2e;
   top:0;
@@ -230,4 +236,105 @@ section h3 {
 
 .badge{
   background-color:#337ab7;
+}
+.form-inline{
+  z-index: -1;
+}
+
+.numDays {
+  min-width: 75px;
+}
+
+/* DUO IMAGES */
+
+/* splitview i panel cine ove dvije slike da budu jedna preko druge */
+.splitview {
+  position: relative;
+  width: 100%;
+  min-height: 45vw;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  width: 100%;
+  min-height: 45vw;
+  overflow: hidden;
+}
+
+.panel .content {
+  position: absolute;
+  width: 100vw;
+  min-height: 45vw;
+  color: #FFF;
+}
+
+.panel .description {
+  width: 15%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.panel img {
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* bottom i top - bg color */
+.bottom {
+  z-index: -3;
+}
+
+.bottom .description {
+  left: 5%;
+}
+
+.top {
+  z-index: -2;
+  width: 50vw;
+
+    /*-webkit-clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);
+    clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);*/
+}
+
+.top .description {
+  left: 5%;
+}
+
+/* Handle. Zuta crta*/
+.handle {
+  height: 100%;
+  position: absolute;
+  display: block;
+  background-color: rgb(253, 171, 0);
+  width: 5px;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+}
+
+/* Skewed. */
+.skewed .handle {
+    top: 50%;
+    transform: rotate(30deg) translateY(-50%);
+    height: 200%;
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    transform-origin: top;
+}
+
+.skewed .top {
+    transform: skew(-30deg);
+    margin-left: -1000px;
+    width: calc(50vw + 1000px);
+}
+
+.skewed .top .content {
+    transform: skew(30deg);
+    margin-left: 1000px;
 }

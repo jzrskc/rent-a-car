@@ -1,3 +1,27 @@
+<!-- Duo IMG -->
+<div class="splitview skewed">
+
+<div class="panel bottom">
+  <div class="content">
+    <div class="description">
+      <h1 class="split col-sm-5 hidden-xs">The Personal vehicle.</h1>
+    </div>
+    <img src="http://res.cloudinary.com/dllclpxlh/image/upload/v1493977417/mercedes-benzE_hmwrgj.png" alt="Original">
+  </div>
+</div>
+
+<div class="panel top">
+  <div class="content">
+    <div class="description">
+      <h1 class="split col-sm-5 hidden-xs">The Terrain vehicle.</h1>
+    </div>
+    <img src="http://res.cloudinary.com/dllclpxlh/image/upload/v1493977409/audi-q5_rq44hp.png" alt="Duotone">
+  </div>
+</div>
+
+<div class="handle"></div>
+</div>
+
 <div class="row">
   <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
     <div id="success" class="alert alert-success" {{#if noMessages}} hidden {{/if}}>
@@ -31,10 +55,8 @@
 		<thead>
   		<tr class="names">
   			<th style="width:80%">Product</th>
-  			<th style="width:10%" class="text-right hidden-xs">Price</th>
-  			<th style="width:15%" class="text-right">Days</th>
-  			<th style="width:50%" class="text-right"></th>
-  			<th style="width:10%" class="text-right">Amount</th>
+  			<th style="width:10%" class="text-right">Price</th>
+  			<th style="width:50%" class="text-right">+/-</th>
   			<th style="width:5%"></th>
   		</tr>
 	  </thead>
@@ -52,48 +74,51 @@
 					</div>
 				</div>
 			</td>
-			<td data-th="Price" class="text-right hidden-xs">&euro;{{ this.price }}</td>
-			<td data-th="Quantity" id="quantity" class="text-right">1</td>
+			<td data-th="Price" class="text-right">&euro;{{ this.price }}</td>
+      </td>
       <td data-th="Buttons" class="text-right">
         <button type="button" class="btn btn-success btn-simple btn-xs" value="Increase" id="inc" onclick="incNumber()">
           <i class="fa fa-plus" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-danger btn-simple btn-xs" value="Decrease" id="dec" onclick="decNumber()">
           <i class="fa fa-minus"></i></button>
 			</td>
-			<td data-th="Subtotal" class="text-right"><strong>€109.99</strong></td>
-
-      <!-- <td>
-        <form action="/" method="get">
-          <input type="hidden" name="qtyVal" value="{{ ?? }}">
-        </form>
-      </td> -->
-
 		</tr>
 
     <tr class="no-border">
-      <td colspan="2" class="hidden-xs"></td>
       <td></td>
-      <td colspan="2"><a href="add-to-cart/{{this._id}}" class="btn btn-success btn-block">Rent-a-Car <i class="fa fa-angle-right"></i></a></td>
+
+      <td colspan="5">
+        <form class="form-inline" action="add-to-cart/{{this._id}}" method="get">
+          <div class="input-group">
+            <input type="text" name="numDays" id="{{this._id}}" class="numDays form-control" placeholder="Days">
+            <span class="input-group-btn">
+              <button type="submit" name="button" class="btn btn-success" id="bt">Rent-a-Car <i class="fa fa-angle-right"></i></button>
+            </span>
+          </div>
+        </form>
+      </td>
+
     </tr>
 	</tbody>
+
+  <script type="text/javascript">
+  // let i = 0;
+  function incNumber() {
+    console.log(i);
+    if (i < 10) i++;
+    else if (i = 10) i = 1;
+    document.getElementById("{{this._id}}").value = i;
+  }
+
+  function decNumber() {
+    if (i > 1) i--;
+    document.getElementById("{{this._id}}").value = i;
+  }
+
+  </script>
   {{/each}}
     {{/each}}
 	</table>
 </div>
 
-<script type="text/javascript">
-  let i = 1;
-  function incNumber() {
-    if (i < 10) i++;
-    else if (i = 10) i = 1;
-    document.getElementById("quantity").innerHTML = i;
-  }
-
-  function decNumber() {
-    if (i > 1) i--;
-    document.getElementById("quantity").innerHTML = i;
-  }
-
-  var x = document.getElementById('quantity').innerHTML;
-  console.log(x);
-</script>
+<script type="text/javascript" src="javascripts/splitImg.js"></script>

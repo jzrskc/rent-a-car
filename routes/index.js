@@ -16,11 +16,13 @@ router.use(csrfProtection);
 // Cart Session - ADD To CART
 router.get('/add-to-cart/:id', function(req, res, next) {
   var productId = req.params.id;
+  var numDays = req.query.numDays;
+
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
   Product.findById(productId, function(err, product) {
     if(err) res.redirect('/');
-    cart.add(product, productId);
+    cart.add(product, productId, numDays);
     req.session.cart = cart;  // Spremamo cart u Session
     // console.log(req.session.cart);
     res.redirect('/');
@@ -118,7 +120,7 @@ router.get('/', function(req, res, next) {
     var returnBooks = [];
     docs.forEach(function(element, index, array) {
       var newBook = element.toJSON();
-      newBook.links = 'http://' + req.headers.host + '/' + newBook._id
+      newBook.links = 'http://' + req.headers.host + '/' + newBook._id;
       returnBooks.push(newBook);
     });
 
