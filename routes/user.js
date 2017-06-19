@@ -4,6 +4,7 @@ var csrf = require('csurf');
 var passport = require('passport');
 var nodemailer = require('nodemailer');
 var validation = require('validator');
+var moment = require('moment');
 
 var Order = require('../models/order');
 
@@ -55,7 +56,18 @@ router.get('/signup', function(req, res, next) {
 
 /* GET CONTACT Form */
 router.get('/contact', function(req, res, next) {
-  res.render('user/contact', { csrfToken: req.csrfToken, success: req.flash('success'), failure: req.flash('failure') });
+  // var time = moment().diff(moment().hour(16), 'hours');
+  var now = moment();
+  var nowHour = moment().hour();
+  if (nowHour > 16 || nowHour < 8) {
+    var timeMsg = `Our office is open from 8 in a morning!`;
+  } else {
+    var endTime = now.hour(16).minute(0);
+    var timeDiff = moment(endTime).fromNow();
+    var timeMsg = `Our office will be closed ${timeDiff}!`;
+  }
+
+  res.render('user/contact', { csrfToken: req.csrfToken, success: req.flash('success'), failure: req.flash('failure'), timeMsg: timeMsg });
 });
 
 router.post('/contact',function(req,res){

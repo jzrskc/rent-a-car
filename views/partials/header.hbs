@@ -1,47 +1,43 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-            </button>
-      <a class="navbar-brand" href="/"><i class="fa fa-car" aria-hidden="true"></i> Rent-a-Car</a>
-    </div>
+<header>
+  <h1>Rent a car company</h1>
+</header>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        {{#if user.admin }}
-        <li class="active">
-          <a class="accordion-toggle btn-block text-warning" href="/admin"><i class="fa fa-cogs" aria-hidden="true"></i> Administration</a>
-        </li>
+<nav id="main">
+  <div class="topnav" id="myTopnav">
+
+  <ul>
+    <li class="logo"><a href="/">HOME.</a></li>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/about">About</a></li>
+    {{#if user.admin }}
+    <li class="active"><a class="accordion-toggle btn-block text-warning" href="/admin"><i class="fa fa-cogs" aria-hidden="true"></i> Administration</a></li>
+    {{/if}}
+    <li>
+      <a href="/shopping-cart">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i> Shopping Cart
+        <span class="badge">{{ session.cart.totalQty }}</span>
+      </a>
+    </li>
+    <li>
+      <a href="/user/contact"><i class="fa fa-envelope-o" aria-hidden="true"></i></i> Contact</a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        {{# if login }}
+          <li><a href="/user/profile">User Account</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/user/logout">Logout</a></li>
+        {{ else }}
+          <li><a href="/user/signin">Sing in</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/user/signup">Sing up</a></li>
         {{/if}}
-        <li>
-          <a href="/shopping-cart">
-            <i class="fa fa-shopping-basket" aria-hidden="true"></i> Shopping Cart
-            <span class="badge">{{ session.cart.totalQty }}</span>
-          </a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            {{# if login }}
-              <li><a href="/user/profile">User Account</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/user/logout">Logout</a></li>
-            {{ else }}
-              <li><a href="/user/signin">Sing in</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/user/signup">Sing up</a></li>
-            {{/if}}
-          </ul>
-        </li>
       </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container-fluid -->
+    </li>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </ul>
+</div>
 </nav>
+
+<script type="text/javascript" src="../../javascripts/navbar.js"></script>

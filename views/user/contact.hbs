@@ -1,38 +1,52 @@
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
+    <div class="alert alert-info alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <p>Info:</p>
+      <p class="typing">{{ timeMsg }}<span class="cursor">|</span></p>
+    </div>
 
-    <h1>Contact Us</h1>
-    {{#if success}}
-      <div class="alert alert-success">
-        {{# each success }}
-          <p>{{this}}</p>
-          {{/each}}
-      </div>
-    {{/if}}
-    {{#if failure}}
-      <div class="alert alert-danger">
-        {{# each failure }}
-          <p>{{this}}</p>
-          {{/each}}
-      </div>
-    {{/if}}
+    <div class="row" style="padding-top:5%;">
+      <div class="col-md-4 col-md-offset-4">
 
-    <form action="/user/contact" method="post">
-      <div class="form-group">
-        <label for="email">Your E-Mail</label>
-        <input type="text" id="email" name="email" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input type="subject" id="subject" name="subject" class="form-control">
-      </div>
-      <div class="input">
-        <label for="text">Text</label>
-        <textarea class="form-control" id="text" name="text" cols="30" rows="4">{{EmailHTML}}</textarea>
-      </div>
-      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-      <button type="submit" class="btn btn-primary">Send</button>
-    </form>
+        <h1>Contact Us</h1>
+        {{#if success}}
+          <div class="alert alert-success">
+            {{# each success }}
+              <p>{{this}}</p>
+              {{/each}}
+          </div>
+        {{/if}}
+        {{#if failure}}
+          <div class="alert alert-danger">
+            {{# each failure }}
+              <p>{{this}}</p>
+              {{/each}}
+          </div>
+        {{/if}}
 
-  </div>
-</div>
+        <form action="/user/contact" method="post" style="padding-bottom:20%">
+          <div class="form-group">
+            <label for="email">Your E-Mail</label>
+            <input type="text" id="email" name="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="subject" id="subject" name="subject" class="form-control">
+          </div>
+          <div class="input">
+            <label for="text">Text</label>
+            <textarea class="form-control" id="text" name="text" cols="30" rows="4">{{EmailHTML}}</textarea>
+          </div>
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+
+      </div>
+    </div>
+
+    <h1>Visit Us</h1>
+    <div id="map" style="width:100%;height:500px;"></div>
+
+
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmGWoMFFJbtz_3icPSQCMWC6-MrG0R08E&callback=loadMap"></script>
+  <script type="text/javascript" src="../../javascripts/mapsApi.js"></script>
