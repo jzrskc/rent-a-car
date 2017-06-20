@@ -23,37 +23,6 @@ var smtpTransport = nodemailer.createTransport({
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
-
-router.get('/profile', isLoggedIn, function(req, res, next) {
-  Order.find({user: req.user}, function(err, orders) {
-    if(err) return res.write('Error!');
-    var orderArr = [];
-    orders.forEach(function(order) {
-      orderArr.push(order)
-    });
-    var userMail = req.user.email;
-    var name = userMail.match(/^([^@]*)@/)[1];
-    var name = name.charAt(0).toUpperCase() + name.slice(1);
-    res.render('user/profile', { orders: orderArr, user: name });
-  });
-});
-
-router.get('/logout', isLoggedIn, function (req, res, next) {
-  req.logout();
-  res.redirect('/');
-});
-
-// Ove ispod route, ako notLoggedIn -> '/'
-router.use('/', notLoggedIn, function(req, res, next) {
-  next();
-});
-
-/* GET SIGNUP page. */
-router.get('/signup', function(req, res, next) {
-  var messages = req.flash('error');
-  res.render('user/signup', { csrfToken: req.csrfToken, messages: messages, hasErrors: messages.length > 0 });
-});
-
 /* GET CONTACT Form */
 router.get('/contact', function(req, res, next) {
   // var time = moment().diff(moment().hour(16), 'hours');
@@ -100,6 +69,39 @@ router.post('/contact',function(req,res){
   }
 
 });
+
+
+/* GET Profile page */
+router.get('/profile', isLoggedIn, function(req, res, next) {
+  Order.find({user: req.user}, function(err, orders) {
+    if(err) return res.write('Error!');
+    var orderArr = [];
+    orders.forEach(function(order) {
+      orderArr.push(order)
+    });
+    var userMail = req.user.email;
+    var name = userMail.match(/^([^@]*)@/)[1];
+    var name = name.charAt(0).toUpperCase() + name.slice(1);
+    res.render('user/profile', { orders: orderArr, user: name });
+  });
+});
+
+router.get('/logout', isLoggedIn, function (req, res, next) {
+  req.logout();
+  res.redirect('/');
+});
+
+// Ove ispod route, ako notLoggedIn -> '/'
+router.use('/', notLoggedIn, function(req, res, next) {
+  next();
+});
+
+/* GET SIGNUP page. */
+router.get('/signup', function(req, res, next) {
+  var messages = req.flash('error');
+  res.render('user/signup', { csrfToken: req.csrfToken, messages: messages, hasErrors: messages.length > 0 });
+});
+
 
 // |->config/passport
 router.post('/signup', passport.authenticate('local.signup', {

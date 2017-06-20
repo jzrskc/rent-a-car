@@ -601,3 +601,8 @@ This class makes the 'nav' look good on small screens (display the links vertica
     /*text-align: left;*/
   }
 }
+@media screen and (max-width: 768px) {
+  .statistic {
+    display: none;
+  }
+}
