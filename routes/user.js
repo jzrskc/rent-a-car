@@ -26,8 +26,8 @@ router.use(csrfProtection);
 /* GET CONTACT Form */
 router.get('/contact', function(req, res, next) {
   // var time = moment().diff(moment().hour(16), 'hours');
-  var now = moment();
-  var nowHour = moment().hour();
+  var now = moment().utcOffset(2);
+  var nowHour = moment().utcOffset(2).hour();
   if (nowHour > 16 || nowHour < 8) {
     var timeMsg = `Our office is open from 8 in a morning!`;
   } else {
