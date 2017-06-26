@@ -9,8 +9,15 @@
             <p class="description">{{ this.description }}</p>
             <div class="clearfix">
               <div class="price pull-left">€{{ this.price }}</div>
-              <a href="add-to-cart/{{this._id}}" class="btn btn-success pull-right" role="button">Rent-a-Car <i class="fa fa-angle-right"></i></a>
-              <a href="{{ this.links }}" class="btn btn-primary pull-right" role="button">Similar</a>
+                <form class="form-inline pull-right" action="add-to-cart/{{this._id}}" method="get">
+                  <div class="input-group">
+                    <input type="text" name="numDays" id="{{this._id}}" class="numDays form-control" placeholder="Days" style="width:50px;">
+                    <span class="input-group-btn">
+                      <button type="submit" name="button" class="btn btn-success" id="bt">Rent-a-Car <i class="fa fa-angle-right"></i></button>
+                      <a href="{{ this.links }}" class="btn btn-primary" role="button">Similar</a>
+                    </span>
+                  </div>
+                </form>
             </div>
           </div>
         </div>

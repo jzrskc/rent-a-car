@@ -606,3 +606,16 @@ This class makes the 'nav' look good on small screens (display the links vertica
     display: none;
   }
 }
+@media screen and (max-width: 400px) {
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 2200px;
+  }
+  h4 {
+    font-size: 11px;
+  }
+  .container {
+    max-width: 100%;
+  }
+}

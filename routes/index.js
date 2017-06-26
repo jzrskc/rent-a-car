@@ -15,6 +15,9 @@ router.use(csrfProtection);
 
 // Cart Session - ADD To CART
 router.get('/add-to-cart/:id', function(req, res, next) {
+  if (req.query.numDays < 1) {
+    res.redirect('/');
+  } else {
   var productId = req.params.id;
   var numDays = req.query.numDays;
 
@@ -27,6 +30,7 @@ router.get('/add-to-cart/:id', function(req, res, next) {
     // console.log(req.session.cart);
     res.redirect('/');
   });
+}
 });
 
 
@@ -154,7 +158,7 @@ router.post('/', function(req, res) {
 /* GET SPECIFIC CAR. */
 router.get('/:carId', function(req, res, next) {
   Product.findById(req.params.carId, function(err,book){
-    if(err) res.status(500).send(err);
+    if(err) return next();
 
     // HATEOAS to filter by this current type
     else {
