@@ -82,7 +82,7 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
     var userMail = req.user.email;
     var name = userMail.match(/^([^@]*)@/)[1];
     var name = name.charAt(0).toUpperCase() + name.slice(1);
-    res.render('user/profile', { orders: orderArr, user: name });
+    res.render('user/profile', { orders: orderArr, userName: name });
   });
 });
 
