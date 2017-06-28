@@ -16,7 +16,7 @@ router.use(csrfProtection);
 // Cart Session - ADD To CART
 router.get('/add-to-cart/:id', function(req, res, next) {
   if (req.query.numDays < 1) {
-    res.redirect('/');
+    return res.redirect('back');
   } else {
   var productId = req.params.id;
   var numDays = req.query.numDays;

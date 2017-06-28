@@ -23,6 +23,7 @@ var adminRoutes = require('./routes/admin');
 var app = express();
 // mongoose.connect('localhost:27017/rentacar');
 mongoose.connect('mongodb://root:password@ds155130.mlab.com:55130/rentacar');
+mongoose.Promise = global.Promise;
 
 require('./config/passport');
 
@@ -54,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
-  res.locals.user = req.user;
+  res.locals.user = req.user || null;
   next();
 });
 

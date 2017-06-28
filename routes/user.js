@@ -7,6 +7,7 @@ var validation = require('validator');
 var moment = require('moment');
 
 var Order = require('../models/order');
+var User = require('../models/user');
 
 /*  Here we are configuring our SMTP Server details.
     STMP is mail server which is responsible for sending and recieving email. */
@@ -82,8 +83,17 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
     var userMail = req.user.email;
     var name = userMail.match(/^([^@]*)@/)[1];
     var name = name.charAt(0).toUpperCase() + name.slice(1);
-    res.render('user/profile', { orders: orderArr, userName: name });
+    res.render('user/profile', { orders: orderArr, userName: name, csrfToken: req.csrfToken, });
   });
+});
+
+router.post('/profile', function(req, res, next) {
+  User.findById(req.user._id, function(err, doc) {
+    if (err)  console.error('error, no entry found');
+    doc.email = req.body.email;
+    doc.save();
+  });
+  res.redirect('back');
 });
 
 router.get('/logout', isLoggedIn, function (req, res, next) {
