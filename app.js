@@ -12,9 +12,11 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 var MongoStore = require('connect-mongo')(session); // Snimamo Session u MongoDB
 
+require('dotenv').config({ path: 'variables.env' });
+
 // Sentry - raver
 var Raven = require('raven');
-Raven.config('https://2fca634c69ba4a37b646673c3d18597b:ea299259106a4666b3f0a13626b0dc44@sentry.io/172609').install();
+Raven.config(process.env.RAVEN).install();
 
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user');
@@ -22,7 +24,7 @@ var adminRoutes = require('./routes/admin');
 
 var app = express();
 // mongoose.connect('localhost:27017/rentacar');
-mongoose.connect('mongodb://root:password@ds155130.mlab.com:55130/rentacar');
+mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise;
 
 require('./config/passport');

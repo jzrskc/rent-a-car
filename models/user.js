@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 const md5 = require('md5');

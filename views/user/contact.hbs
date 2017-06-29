@@ -26,7 +26,7 @@
         <form action="/user/contact" method="post" style="padding-bottom:20%">
           <div class="form-group">
             <label for="email">Your E-Mail</label>
-            <input type="text" id="email" name="email" class="form-control">
+            <input type="text" id="email" name="email" class="form-control" value="{{user.email}}">
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>
@@ -44,8 +44,8 @@
     </div>
 
     <h1>Visit Us</h1>
+    {{process.env.MAP_KEY}}
     <div id="map" style="width:100%;height:500px;"></div>
-
 
 
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmGWoMFFJbtz_3icPSQCMWC6-MrG0R08E&callback=loadMap"></script>

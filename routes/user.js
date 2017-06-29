@@ -12,13 +12,14 @@ var User = require('../models/user');
 /*  Here we are configuring our SMTP Server details.
     STMP is mail server which is responsible for sending and recieving email. */
 var smtpTransport = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
+  service: process.env.MAIL_SERVICE,
+  host: process.env.MAIL_HOST,
   auth: {
-    user: "jzrskc@gmail.com",
-    pass: "xxx"
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
   }
 });
+
 
 //  CSURF - protection middleware
 var csrfProtection = csrf();
@@ -50,19 +51,16 @@ router.post('/contact',function(req,res){
   } else {
   var mailOptions={
     // from: "jzrskc@gmail.com",
-    to : 'milan@parcellab.com',
+    to : process.env.MAIL_RECEIVER,
     subject : req.body.subject + ' -> ' + req.body.email,
     text : req.body.text
   }
-  console.log(mailOptions);
   smtpTransport.sendMail(mailOptions, function(error, response){
     if(error) {
       console.log(error);
-      // req.flash('failure', JSON.stringify(error));
       req.flash('failure', `Internal error 😞 Please send us email on: jzrskc@gmail.com`);
       res.redirect('/user/contact');
     } else {
-    // console.log("Message sent: " + response);
     req.flash('success', 'Mail sent! 😄');
     res.redirect('/user/contact');
     }
