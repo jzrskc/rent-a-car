@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var csrf = require('csurf');
+var moment = require('moment');
 
 // IMPORT COLLECTION
 var Product = require('../models/product');
@@ -15,17 +16,20 @@ router.use(csrfProtection);
 
 // Cart Session - ADD To CART
 router.get('/add-to-cart/:id', function(req, res, next) {
-  if (req.query.numDays < 1) {
+  var numDays = req.query.numDays;
+  var startingDate = moment(req.query.date).format("DD-MM-YYYY");
+  var endingDate = moment(req.query.date).add(numDays, 'days').format("DD-MM-YYYY");
+
+  if (numDays < 1 || startingDate === 'Invalid date') {
     return res.redirect('back');
   } else {
   var productId = req.params.id;
-  var numDays = req.query.numDays;
 
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
   Product.findById(productId, function(err, product) {
     if(err) res.redirect('/');
-    cart.add(product, productId, numDays);
+    cart.add(product, productId, numDays, startingDate, endingDate);
     req.session.cart = cart;  // Spremamo cart u Session
     // console.log(req.session.cart);
     res.redirect('/');

@@ -20,6 +20,7 @@
                 <li class="list-group-item">
                   <span class="badge">&euro; {{ this.price }}</span> {{ this.item.title }} | {{ this.qty }} Day(s)
                 </li>
+                <li class="list-group-item" style="background:#f6f6f6;">From {{ this.startingDate }} to {{ this.endingDate }}</li>
                 {{/each}}
             </ul>
           </div>
@@ -28,6 +29,8 @@
     </div>
     {{/each}}
   </div>
+
+</div>
 
   <div class="col-md-4 col-md-offset-4">
 
@@ -43,4 +46,3 @@
     </form>
 
   </div>
-</div>

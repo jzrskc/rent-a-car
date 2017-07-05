@@ -116,6 +116,7 @@
       <td colspan="5">
         <form class="form-inline" action="add-to-cart/{{this._id}}" method="get">
           <div class="input-group">
+            <input type="date" id="{{this._id}}" name="date" min="" max="2017-07-30">
             <input type="text" name="numDays" id="{{this._id}}" class="numDays form-control" placeholder="Days">
             <span class="input-group-btn">
               <button type="submit" name="button" class="btn btn-success" id="bt">Rent-a-Car <i class="fa fa-angle-right"></i></button>
@@ -128,19 +129,8 @@
 	</tbody>
 
   <script>
-  let i = 0;
-  function incNumber() {
-    console.log(i);
-    if (i < 10) i++;
-    else if (i = 10) i = 1;
-    document.getElementById("{{this._id}}").value = i;
-  }
-
-  function decNumber() {
-    if (i > 1) i--;
-    document.getElementById("{{this._id}}").value = i;
-  }
-
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById("{{this._id}}").setAttribute('min', today);
   </script>
 
   {{/each}}

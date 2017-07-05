@@ -11,15 +11,17 @@ module.exports = function Cart(oldCart) {
   this.totalPrice = oldCart.totalPrice || 0;
 
 // Funkcija za dodavanje itema u kosaru, svaki ce imati kolicinu i ukupnu cijenu
-  this.add = function(item, id, qty) {
+  this.add = function(item, id, qty, start, end) {
     var storedItem = this.items[id];
     if (storedItem) {
       this.totalQty -= storedItem.qty;
       this.totalPrice -= storedItem.price;
     }
     var storedItem = this.items[id] = {qty: 0, item: item, price: 0};
-    
+
     storedItem.qty = parseInt(qty, 10);
+    storedItem.startingDate = start;
+    storedItem.endingDate = end;
     storedItem.price = storedItem.item.price * storedItem.qty;
     this.totalQty += storedItem.qty;
     this.totalPrice += storedItem.price;
