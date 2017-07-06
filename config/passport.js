@@ -26,7 +26,10 @@ passport.use('local.signup', new LocalStrategy({
     remove_extension: false,
     gmail_remove_subaddress: false
   });
-  req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
+  req.checkBody('userName', 'User name is required').notEmpty();
+  req.checkBody('address', 'Address is required').notEmpty();
+  req.checkBody('password', 'Short password').notEmpty().isLength({min:4});
+  req.checkBody('confirmPassword', 'Passwords do not match').equals(req.body.password);
   var errors = req.validationErrors();
   if(errors) {
     var messages = [];
@@ -40,6 +43,8 @@ passport.use('local.signup', new LocalStrategy({
     var newUser = new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password); //funkcija u models/user.js
+    newUser.userName = req.body.userName;
+    newUser.address = req.body.address;
     newUser.save(function(err, result) {
       if (err) return done(err);
       return done(null, newUser);

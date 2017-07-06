@@ -4,6 +4,8 @@
 
 // Cart = items: { '584589b8f2f00d3ae51a3f10': { qty: 1, item: [Object], price: 10 } }
 // this.items[id] = {qty: 0, item: item, price: 0};
+var moment = require('moment');
+
 
 module.exports = function Cart(oldCart) {
   this.items = oldCart.items || {};
@@ -11,7 +13,7 @@ module.exports = function Cart(oldCart) {
   this.totalPrice = oldCart.totalPrice || 0;
 
 // Funkcija za dodavanje itema u kosaru, svaki ce imati kolicinu i ukupnu cijenu
-  this.add = function(item, id, qty, start, end) {
+  this.add = function(item, id, qty, date) {
     var storedItem = this.items[id];
     if (storedItem) {
       this.totalQty -= storedItem.qty;
@@ -20,8 +22,8 @@ module.exports = function Cart(oldCart) {
     var storedItem = this.items[id] = {qty: 0, item: item, price: 0};
 
     storedItem.qty = parseInt(qty, 10);
-    storedItem.startingDate = start;
-    storedItem.endingDate = end;
+    storedItem.startingDate = moment(date).format("MM-DD-YYYY");
+    storedItem.endingDate = moment(date).add(qty, 'days').format("MM-DD-YYYY");
     storedItem.price = storedItem.item.price * storedItem.qty;
     this.totalQty += storedItem.qty;
     this.totalPrice += storedItem.price;
@@ -31,6 +33,8 @@ module.exports = function Cart(oldCart) {
   this.reduceByOne = function one(id) {
     this.items[id].qty--;
     this.items[id].price -= this.items[id].item.price;
+    // this.items[id].endingDate = moment(this.items[id].startingDate).add(this.items[id].qty, "days").format("MM-DD-YYYY");
+    this.items[id].endingDate = moment(this.items[id].endingDate).subtract(1, "days").format("MM-DD-YYYY");
     this.totalQty--;
     this.totalPrice -= this.items[id].item.price;
 

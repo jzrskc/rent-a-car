@@ -12,6 +12,8 @@ var userSchema = new Schema({
     trim: true,
     required: 'Please Supply an email address'
   },
+  userName: {type: String, required: true},
+  address: {type: String, required: true},
   password: {type: String, required: true},
   admin: {type: Boolean, default: false}
 });

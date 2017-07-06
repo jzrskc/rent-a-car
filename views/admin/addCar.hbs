@@ -1,40 +1,43 @@
-<h1>CRUD</h1>
+<h1>Add new Car</h1>
 
-<section class="insert">
-  <h3>Insert Data</h3>
-  <form action="admin/insert" method="post">
-    <div class="input">
-      <label for="imagePath">Image</label>
-      <input type="text" id="imagePath" name="imagePath">
-    </div>
-    <div class="input">
-      <label for="title">Title</label>
-      <input type="text" id="title" name="title">
-    </div>
-    <div class="input">
-      <label for="description">Description</label>
-      <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
-      <!-- <input type="text" id="description" name="description"> -->
-    </div>
-    <br>
-    <div class="input">
-      <select id="type" name="type" class="form-control">
-        <option value="">(Select type)</option>
-        <option value="personal">personal</option>
-        <option value="terrain">terrain</option>
-      </select>
-    </div>
-    <div class="input">
-      <label for="price">Price</label>
-      <input type="text" id="price" name="price">
-    </div>
-    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    <button type="submit">INSERT</button>
-  </form>
-</section>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+
+    <form action="admin/insert" method="post" style="padding-top:20%">
+      <div class="form-group">
+        <label for="email">Image path</label>
+        <input type="text" id="imagePath" name="imagePath" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="password">Title</label>
+        <input type="text" id="title" name="title" class="form-control" required>
+      </div>
+      <div class="input">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" class="form-control" cols="30" rows="4" required>{{EmailHTML}}</textarea>
+      </div>
+      <div class="input" style="padding:4% 0 4% 0;">
+        <select id="type" name="type" class="form-control" required>
+          <option value="">(Select type)</option>
+          <option value="personal">personal</option>
+          <option value="terrain">terrain</option>
+        </select>
+      </div>
+      <div class="input">
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" class="form-control" required>
+      </div>
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+  </div>
+</div>
 
 
-<section class="get">
+
+
+<!-- <section class="get">
   <h3>All Data</h3>
   <div>
     {{# each items }}
@@ -47,10 +50,10 @@
       </article>
     {{/each}}
   </div>
-</section>
+</section> -->
 
 
-<section class="update">
+<!-- <section class="update">
   <h3>Update Data</h3>
   <form action="admin/update" method="post">
     <div class="input">
@@ -67,9 +70,10 @@
     </div>
     <div class="input">
       <label for="description">Description</label>
-      <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea>
+      <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{EmailHTML}}</textarea> -->
       <!-- <input type="textarea rows='5'" id="description" name="description"> -->
-    </div><br>
+
+    <!-- </div><br>
     <div class="input">
       <select id="type" name="type" class="form-control">
         <option value="">(Select type)</option>
@@ -84,10 +88,10 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <button type="submit">UPDATE</button>
   </form>
-</section>
+</section> -->
 
 
-<section class="delete">
+<!-- <section class="delete">
   <h3>Delete Data</h3>
   <form action="admin/delete" method="post">
     <div class="input">
@@ -97,4 +101,4 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <button type="submit">DELETE</button>
   </form>
-</section>
+</section> -->

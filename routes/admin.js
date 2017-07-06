@@ -19,7 +19,19 @@ var Product = require('../models/product');
 router.get('/', isLoggedIn, verifyAdmin, function(req, res, next) {
   var query = {};
   Product.find(query, function(err, doc) {
-    res.render('admin/admin', {title: 'Rent-a-Car', items: doc, csrfToken: req.csrfToken});
+    res.render('admin/addCar', {title: 'Rent-a-Car', items: doc, csrfToken: req.csrfToken});
+  });
+});
+
+// Get Update
+router.get('/update/:id', isLoggedIn, verifyAdmin, function(req, res, next) {
+  var id = req.params.id;
+
+  Product.findById(id, function(err, doc) {
+    if (err) console.error('error, no entry found');
+    var docs = doc;
+    console.log(docs);
+    res.render('admin/update', {id: id, docs: docs, csrfToken: req.csrfToken});
   });
 });
 
@@ -38,34 +50,17 @@ router.post('/insert', function(req, res, next) {
   var data = new Product(item);
   data.save();
 
-  res.redirect('/admin');
-});
-
-
-
-// UPDATE
-router.post('/update', function(req, res, next) {
-  var id = req.body.id;
-
-  Product.findById(id, function(err, doc) {
-    if (err) console.error('error, no entry found');
-
-    doc.imagePath = req.body.imagePath;
-    doc.title = req.body.title;
-    doc.description = req.body.description;
-    doc.type = req.body.type;
-    doc.price = req.body.price;
-    doc.save();
-  })
-  res.redirect('/admin');
+  res.redirect('/');
 });
 
 
 // DELETE
-router.post('/delete', function(req, res, next) {
-  var id = req.body.id;
+router.post('/delete/:id', function(req, res, next) {
+  var id = req.params.id;
+  console.log(id);
   Product.findByIdAndRemove(id).exec();
-  res.redirect('/admin');
+  console.log("Done !!!");
+  res.redirect('/');
 });
 
 

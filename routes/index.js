@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var csrf = require('csurf');
-var moment = require('moment');
 
 // IMPORT COLLECTION
 var Product = require('../models/product');
@@ -13,23 +12,45 @@ var csrfProtection = csrf();
 router.use(csrfProtection);
 
 
+// UPDATE Car
+router.post('/update', function(req, res, next) {
+  var id = req.body.id;
+
+  Product.findById(id, function(err, doc) {
+    if (err) console.error('error, no entry found');
+
+    doc.imagePath = req.body.imagePath;
+    doc.title = req.body.title;
+    doc.description = req.body.description;
+    doc.type = req.body.type;
+    doc.price = req.body.price;
+    doc.save();
+  })
+  res.redirect('http://' + req.headers.host + '/' + id);
+});
+
+// DELETE Car
+router.post('/delete', function(req, res, next) {
+  Product.findByIdAndRemove(req.body.id).exec();
+  res.redirect('/');
+});
+
 
 // Cart Session - ADD To CART
 router.get('/add-to-cart/:id', function(req, res, next) {
   var numDays = req.query.numDays;
-  var startingDate = moment(req.query.date).format("DD-MM-YYYY");
-  var endingDate = moment(req.query.date).add(numDays, 'days').format("DD-MM-YYYY");
+  var startingDate = req.query.date;
+  var productId = req.params.id;
 
   if (numDays < 1 || startingDate === 'Invalid date') {
     return res.redirect('back');
   } else {
-  var productId = req.params.id;
 
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
   Product.findById(productId, function(err, product) {
     if(err) res.redirect('/');
-    cart.add(product, productId, numDays, startingDate, endingDate);
+    cart.add(product, productId, numDays, startingDate);
     req.session.cart = cart;  // Spremamo cart u Session
     // console.log(req.session.cart);
     res.redirect('/');

@@ -78,10 +78,7 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
     orders.forEach(function(order) {
       orderArr.push(order)
     });
-    var userMail = req.user.email;
-    var name = userMail.match(/^([^@]*)@/)[1];
-    var name = name.charAt(0).toUpperCase() + name.slice(1);
-    res.render('user/profile', { orders: orderArr, userName: name, csrfToken: req.csrfToken, });
+    res.render('user/profile', { orders: orderArr, csrfToken: req.csrfToken });
   });
 });
 
@@ -89,6 +86,8 @@ router.post('/profile', function(req, res, next) {
   User.findById(req.user._id, function(err, doc) {
     if (err)  console.error('error, no entry found');
     doc.email = req.body.email;
+    doc.address = req.body.address;
+    doc.userName = req.body.userName;
     doc.save();
   });
   res.redirect('back');

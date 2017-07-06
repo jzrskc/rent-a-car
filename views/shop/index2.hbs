@@ -88,6 +88,7 @@
 	  </thead>
 
   {{# each products }}
+  {{ user.admin }}
 	<tbody>
     {{# each this }}
 		<tr class="item">
@@ -102,13 +103,15 @@
 			</td>
 			<td data-th="Price" class="text-right">&euro;{{ this.price }}</td>
       </td>
-      <td data-th="Buttons" class="buttons text-right hidden-xs">
-        <button type="button" class="btn btn-success btn-simple btn-xs" value="Increase" id="inc" onclick="incNumber()">
-          <i class="fa fa-plus" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-danger btn-simple btn-xs" value="Decrease" id="dec" onclick="decNumber()">
-          <i class="fa fa-minus"></i></button>
-			</td>
-		</tr>
+
+      <td colspan="5" class="buttons text-right hidden-xs">
+        <form class="form-inline" action="admin/update/{{this._id}}" method="get">
+          <div class="input-group">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <button type="submit" name="button" class="btn btn-success btn-simple btn-md" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          </div>
+        </form>
+      </td>
 
     <tr class="no-border">
       <td></td>

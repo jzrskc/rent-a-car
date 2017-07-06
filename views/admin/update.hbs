@@ -1,0 +1,48 @@
+<h1>Update Car</h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <img class="img-circle" style="display:block; margin:0 auto;" src="{{ docs.imagePath }}">
+
+    <td colspan="5" class="buttons text-right hidden-xs">
+      <form class="form-inline" action="/delete" method="post">
+        <div class="input-group">
+          <input type="hidden" name="id" value="{{ id }}">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <button type="submit" name="button" class="btn btn-danger btn-simple btn-md" title="Delete">Delete</button>
+        </div>
+      </form>
+    </td>
+
+    <form action="/update" method="post" style="padding-top:20%">
+      <div class="form-group">
+        <label for="email">Image path</label>
+        <input type="text" id="imagePath" name="imagePath" class="form-control" value="{{docs.imagePath}}">
+      </div>
+      <div class="form-group">
+        <label for="password">Title</label>
+        <input type="text" id="title" name="title" class="form-control" value="{{docs.title}}" required>
+      </div>
+      <div class="input">
+        <label for="description">Description</label>
+        <input type="hidden">
+        <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{docs.description}}</textarea>
+      </div>
+      <div class="input" style="padding:4% 0 4% 0;">
+        <select id="type" name="type" class="form-control" required>
+          <option value="">(Select type)</option>
+          <option value="personal">personal</option>
+          <option value="terrain">terrain</option>
+        </select>
+      </div>
+      <div class="input" style="padding:0 0 4% 0;">
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" class="form-control" value="{{docs.price}}" required>
+      </div>
+      <input type="hidden" name="id" value="{{ id }}">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+  </div>
+</div>
