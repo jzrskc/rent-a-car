@@ -44,7 +44,8 @@ router.post('/insert', function(req, res, next) {
     title: req.body.title,
     description: req.body.description,
     type: req.body.type,
-    price: req.body.price
+    price: req.body.price,
+    carNumber: req.body.carNumber
   };
 
   var data = new Product(item);

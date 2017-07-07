@@ -24,9 +24,10 @@ router.post('/update', function(req, res, next) {
     doc.description = req.body.description;
     doc.type = req.body.type;
     doc.price = req.body.price;
+    doc.carNumber = req.body.carNumber;
     doc.save();
   })
-  res.redirect('http://' + req.headers.host + '/' + id);
+  res.redirect('/');
 });
 
 // DELETE Car

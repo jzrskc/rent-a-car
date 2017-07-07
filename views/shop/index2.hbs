@@ -80,7 +80,7 @@
 	<table id="cart" class="table table-responsive">
 		<thead>
   		<tr class="names">
-  			<th style="width:80%">Product</th>
+  			<th style="width:100%">Product</th>
   			<th style="width:10%" class="text-right">Price</th>
   			<th style="width:50%" class="text-right hidden-xs">+/-</th>
   			<th style="width:5%"></th>
@@ -94,7 +94,13 @@
 		<tr class="item">
 			<td data-th="Product">
 				<div class="row">
-					<div class="col-sm-3 hidden-xs"><a href="{{this.links}}"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a></div>
+					<div class="col-sm-3 hidden-xs"><a href="{{this.links}}"><img src="{{ this.imagePath }}" alt="{{ this.title }}" class="img-product img-responsive img-rounded"/></a>
+
+          {{#if this.carNumber }} {{else}}
+          <img class="sold" src="http://res.cloudinary.com/dllclpxlh/image/upload/v1499436225/sold_xiojea.png" alt="SOLD">
+          {{/if}}
+
+          </div>
 					<div class="col-sm-9">
 						<h4 class="nomargin"><a href="{{this.links}}">{{ this.title }}</a></h4>
 						<p class="hidden-xs">{{ this.description }}</p>
@@ -122,7 +128,7 @@
             <input type="date" id="{{this._id}}" name="date" min="" max="2017-07-30">
             <input type="text" name="numDays" id="{{this._id}}" class="numDays form-control" placeholder="Days">
             <span class="input-group-btn">
-              <button type="submit" name="button" class="btn btn-success" id="bt">Rent-a-Car <i class="fa fa-angle-right"></i></button>
+              <button type="submit" name="button" class="btn btn-success" {{#if this.carNumber }} {{else}} disabled {{/if}} id="bt">Rent-a-Car <i class="fa fa-angle-right"></i></button>
             </span>
           </div>
         </form>
